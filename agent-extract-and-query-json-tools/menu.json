@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Paneer biriyani",
+        "price": 22.9,
+        "section": "Rice dish"
+    },
+    {
+        "name": "Chicken fried rice",
+        "price": 14.9,
+        "section": "Rice dish"
+    },
+    {
+        "name": "Roti",
+        "price": 17.9,
+        "section": "Breads"
+    }
+]

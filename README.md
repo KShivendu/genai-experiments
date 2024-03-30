@@ -1,1 +1,1 @@
-# genai-experiments
+# RAG experiments
