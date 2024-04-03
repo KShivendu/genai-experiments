@@ -16,7 +16,7 @@ from utils import (
 
 QDRANT_COLLECTION = "multimodal-reranking"
 
-client = QdrantClient(mode=":inmemory:")
+client = QdrantClient(mode=":memory:")
 
 client.create_collection(
     collection_name=QDRANT_COLLECTION,
