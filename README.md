@@ -1,1 +1,1 @@
-# RAG experiments
+# RAG cookbook
