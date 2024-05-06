@@ -1,3 +1,4 @@
+from typing import List
 from pydantic import BaseModel, Field
 
 
@@ -12,3 +13,11 @@ class FoodItem(BaseModel):
         description="Short description of how does it taste and feel in mouth"
     )
     is_vegetarian: bool  # TODO: Can be ambiguous. LLM could ask more question while asking for preferences?
+
+
+class ExtractedFoodName(BaseModel):
+    """Food items / dishes extracted from output of an OCR"""
+
+    food_names: List[str] = Field(
+        description="Each item must be an actual food item because OCR data can have lot of noise. If doubtful, discard. I don't want False positives. You can also fix small typos based on your understanding"
+    )

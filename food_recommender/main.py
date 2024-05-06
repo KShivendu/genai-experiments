@@ -1,5 +1,5 @@
 import uuid
-from typing import List
+from typing import List, Dict
 from qdrant_client import QdrantClient, models as qmodels
 from llama_index.llms.openai import OpenAI
 from fastembed import TextEmbedding
@@ -8,7 +8,7 @@ from food_recommender.models import FoodItem
 from food_recommender.utils import synthesize_food_item
 
 likes = ["dosa", "fanta", "croissant", "waffles"]
-dislikes = ["virgin mohito"]
+dislikes = ["virgin mojito"]
 
 menu = ["croissant", "mango", "jalebi"]
 
@@ -63,7 +63,9 @@ class RecommendationEngine:
     def dislike(self, item: FoodItem):
         self._insert_preference(item, liked=False)
 
-    def recommend_from_given(self, items: List[FoodItem], limit: int = 3):
+    def recommend_from_given(
+        self, items: List[FoodItem], limit: int = 3
+    ) -> Dict[str, int]:
         liked_points, _offset = self.qdrant.scroll(
             self.collection,
             scroll_filter={"must": [{"key": "liked", "match": {"value": True}}]},
@@ -90,7 +92,7 @@ class RecommendationEngine:
         )
         self.qdrant.delete(self.collection, [p.id for p in scored_points])
 
-        return [point.payload["name"] for point in scored_points]
+        return {point.payload["name"]: point.score for point in scored_points}
 
 
 if __name__ == "__main__":
